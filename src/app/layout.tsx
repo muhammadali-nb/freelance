@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { inter } from "@/lib/fonts";
+import { AuthProvider } from "@/context/auth-context";
 
 export const metadata: Metadata = {
 	title: "Freelance Platform",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="ru">
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<AuthProvider>{children}</AuthProvider>
+			</body>
 		</html>
 	);
 }

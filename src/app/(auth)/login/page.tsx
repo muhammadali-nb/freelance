@@ -1,76 +1,81 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import { useAuth } from "@/context/auth-context";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const router = useRouter()
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const { login } = useAuth();
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const redirect = searchParams?.get("redirect") || "/profile";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		try {
+			await login(email, password);
+			router.push(redirect);
+		} catch (error) {
+			console.error("Login failed:", error);
+		}
+	};
 
-    try {
-      // Здесь должна быть логика входа
-      console.log('Вход:', email, password)
-      router.push('/dashboard')
-    } catch (err) {
-      setError('Ошибка при входе. Пожалуйста, проверьте ваши данные и попробуйте снова.')
-    }
-  }
-
-  return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="text-2xl md:text-3xl">Вход</CardTitle>
-        <CardDescription>Войдите в свою учетную запись</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="Введите ваш email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Пароль</Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Введите ваш пароль"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          {error && (
-            <Alert variant="destructive">
-              <AlertTitle>Ошибка</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-          <Button type="submit" className="w-full">Войти</Button>
-        </form>
-      </CardContent>
-      <CardFooter>
-        <p className="text-sm text-gray-500 text-center w-full">
-          Нет аккаунта? <a href="/register" className="text-blue-500 hover:underline">Зарегистрироваться</a>
-        </p>
-      </CardFooter>
-    </Card>
-  )
+	return (
+		<div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+			<h1 className="text-2xl font-bold mb-6 text-center">Вход в систему</h1>
+			<form onSubmit={handleSubmit} className="space-y-4">
+				<div className="space-y-2">
+					<Label htmlFor="email">Email</Label>
+					<Input
+						id="email"
+						type="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						placeholder="Введите ваш email"
+						required
+					/>
+				</div>
+				<div className="space-y-2">
+					<Label htmlFor="password">Пароль</Label>
+					<Input
+						id="password"
+						type="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder="Введите ваш пароль"
+						required
+					/>
+				</div>
+				<div className="flex items-center justify-between">
+					<div className="flex items-center space-x-2">
+						<Checkbox id="remember" />
+						<Label htmlFor="remember">Запомнить меня</Label>
+					</div>
+					<Link
+						href="/forgot-password"
+						className="text-sm text-blue-600 hover:underline"
+					>
+						Забыли пароль?
+					</Link>
+				</div>
+				<Button type="submit" className="w-full">
+					Войти
+				</Button>
+			</form>
+			<div className="mt-4 text-center">
+				<span className="text-sm text-gray-600">Нет аккаунта? </span>
+				<Link href="/register" className="text-sm text-blue-600 hover:underline">
+					Зарегистрироваться
+				</Link>
+			</div>
+		</div>
+	);
 }

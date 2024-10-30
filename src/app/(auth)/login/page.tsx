@@ -67,7 +67,8 @@ export default function LoginPage() {
 					</Link>
 				</div>
 				<Button type="submit" className="w-full">
-					Войти
+					Войти 
+					
 				</Button>
 			</form>
 			<div className="mt-4 text-center">

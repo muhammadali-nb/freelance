@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,9 +8,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { useAuth } from "@/context/auth-context";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function LoginPage() {
+function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const { login } = useAuth();
@@ -67,8 +66,7 @@ export default function LoginPage() {
 					</Link>
 				</div>
 				<Button type="submit" className="w-full">
-					Войти 
-					
+					Войти
 				</Button>
 			</form>
 			<div className="mt-4 text-center">
@@ -78,5 +76,13 @@ export default function LoginPage() {
 				</Link>
 			</div>
 		</div>
+	);
+}
+
+export default function LoginPage() {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<LoginForm />
+		</Suspense>
 	);
 }

@@ -2,7 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Metadata } from "next";
+
+import { useParams } from "next/navigation";
 
 // В реальном приложении данные будут загружаться с сервера
 const mockOrder = {
@@ -29,15 +30,17 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // В реальном приложении здесь будет запрос к API
-  return {
-    title: mockOrder.title,
-    description: mockOrder.description.substring(0, 160),
-  }
-}
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   // В реальном приложении здесь будет запрос к API
+//   return {
+//     title: mockOrder.title,
+//     description: mockOrder.description.substring(0, 160),
+//   }
+// }
 
-export default function OrderDetailPage({ params }: Props) {
+export default function OrderDetailPage() {
+
+    const params = useParams<{ id: string;}>()
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="grid md:grid-cols-3 gap-6">

@@ -11,109 +11,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Search, SlidersHorizontal } from "lucide-react";
-
-// Моковые данные
-const mockOrders: Order[] = [
-  {
-    id: "1",
-    title: "Разработка веб-приложения",
-    description: "Требуется разработать веб-приложение для управления задачами...",
-    budget: 100000,
-    deadline: "2024-04-01", 
-    status: "open",
-    category: "Web Development",
-    skills: ["React", "Node.js", "TypeScript"],
-    createdAt: "2024-03-01",
-    client: {
-      id: "c1",
-      name: "Иван Петров",
-      avatar: "/avatars/client1.jpg"
-    }
-  },
-  {
-    id: "2", 
-    title: "Мобильное приложение для доставки еды",
-    description: "Нужно разработать мобильное приложение для сервиса доставки еды...",
-    budget: 150000,
-    deadline: "2024-05-01",
-    status: "open",
-    category: "Mobile Development",
-    skills: ["React Native", "Firebase", "Redux"],
-    createdAt: "2024-03-02",
-    client: {
-      id: "c2", 
-      name: "Мария Иванова",
-      avatar: "/avatars/client2.jpg"
-    }
-  },
-  {
-    id: "3",
-    title: "Редизайн корпоративного сайта",
-    description: "Требуется обновить дизайн и улучшить юзабилити корпоративного сайта...",
-    budget: 80000,
-    deadline: "2024-04-15",
-    status: "open", 
-    category: "Design",
-    skills: ["UI/UX", "Figma", "Web Design"],
-    createdAt: "2024-03-03",
-    client: {
-      id: "c3",
-      name: "Алексей Смирнов",
-      avatar: "/avatars/client3.jpg"
-    }
-  },
-  {
-    id: "4",
-    title: "Разработка CRM системы",
-    description: "Необходимо разработать CRM систему для управления клиентами...",
-    budget: 200000,
-    deadline: "2024-06-01",
-    status: "open",
-    category: "Web Development",
-    skills: ["Angular", "MongoDB", "Express"],
-    createdAt: "2024-03-04",
-    client: {
-      id: "c4",
-      name: "Елена Козлова",
-      avatar: "/avatars/client4.jpg"
-    }
-  },
-  {
-    id: "5",
-    title: "Создание игрового приложения",
-    description: "Требуется разработать 2D игру для мобильных устройств...",
-    budget: 120000,
-    deadline: "2024-05-15",
-    status: "open",
-    category: "Game Development",
-    skills: ["Unity", "C#", "2D Animation"],
-    createdAt: "2024-03-05",
-    client: {
-      id: "c5",
-      name: "Дмитрий Волков",
-      avatar: "/avatars/client5.jpg"
-    }
-  }
-];
+import { FiltersContent } from "./filters/filters-content";
+import { mockOrders } from "@/lib/mock-data/orders"; // Переместите моковые данные в отдельный файл
 
 export function OrdersList() {
   const { role } = useRole();
@@ -121,65 +29,11 @@ export function OrdersList() {
   const [search, setSearch] = useState("");
   const [budget, setBudget] = useState([0, 1000000]);
 
-  const FiltersContent = () => (
-    <div className="space-y-6">
-      <div>
-        <label className="text-sm font-medium mb-2 block">
-          Категория
-        </label>
-        <Select value={category} onValueChange={setCategory}>
-          <SelectTrigger>
-            <SelectValue placeholder="Выберите категорию" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Все категории</SelectItem>
-            <SelectItem value="web">Веб-разработка</SelectItem>
-            <SelectItem value="mobile">Мобильная разработка</SelectItem>
-            <SelectItem value="design">Дизайн</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium mb-2 block">
-          Бюджет
-        </label>
-        <div className="space-y-4">
-          <Slider
-            value={budget}
-            max={1000000}
-            step={10000}
-            onValueChange={setBudget}
-          />
-          <div className="flex justify-between text-sm">
-            <span>{budget[0].toLocaleString()} ₽</span>
-            <span>{budget[1].toLocaleString()} ₽</span>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium mb-2 block">
-          Навыки
-        </label>
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="outline" className="cursor-pointer">React</Badge>
-          <Badge variant="outline" className="cursor-pointer">Node.js</Badge>
-          <Badge variant="outline" className="cursor-pointer">TypeScript</Badge>
-        </div>
-      </div>
-
-      <Separator />
-
-      <Button className="w-full">Применить фильтры</Button>
-    </div>
-  );
-
   return (
-    <div className="grid lg:grid-cols-12 gap-6">
+    <div className="container mx-auto px-4 grid lg:grid-cols-12 gap-6">
       {/* Фильтры для десктопа */}
       <div className="hidden lg:block lg:col-span-3">
-        <Card>
+        <Card className="sticky top-4">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <SlidersHorizontal className="h-5 w-5" />
@@ -187,7 +41,12 @@ export function OrdersList() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <FiltersContent />
+            <FiltersContent
+              category={category}
+              setCategory={setCategory}
+              budget={budget}
+              setBudget={setBudget}
+            />
           </CardContent>
         </Card>
       </div>
@@ -196,7 +55,7 @@ export function OrdersList() {
       <div className="col-span-12 lg:col-span-9">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder={role === "freelancer" ? "Поиск заказов..." : "Поиск фрилансеров..."}
               value={search}
@@ -206,7 +65,7 @@ export function OrdersList() {
           </div>
           
           {/* Фильтры для мобильных */}
-          <div className="lg:hidden">
+          <div className="lg:hidden w-full sm:w-auto">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" className="w-full sm:w-auto">
@@ -214,12 +73,17 @@ export function OrdersList() {
                   Фильтры
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent side="right" className="w-full sm:max-w-lg">
                 <SheetHeader>
                   <SheetTitle>Фильтры</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6">
-                  <FiltersContent />
+                  <FiltersContent
+                    category={category}
+                    setCategory={setCategory}
+                    budget={budget}
+                    setBudget={setBudget}
+                  />
                 </div>
               </SheetContent>
             </Sheet>

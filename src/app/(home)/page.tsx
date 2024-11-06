@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function HomePage() {
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-			<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center">
+		<div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
+			<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center text-foreground">
 				Добро пожаловать на Freelance Platform
 			</h1>
-			<p className="text-lg md:text-xl mb-8 text-center max-w-2xl">
+			<p className="text-lg md:text-xl mb-8 text-center max-w-2xl text-muted-foreground">
 				Найдите лучших фрилансеров для вашего проекта или предложите свои услуги
 				тысячам клиентов.
 			</p>

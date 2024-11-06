@@ -1,10 +1,11 @@
-"use client"
+
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useParams } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
+import { Metadata } from "next";
 
 // В реальном приложении данные будут загружаться с сервера
 const mockOrder = {
@@ -55,41 +56,44 @@ const mockOrder = {
 	]
 };
 
-export default function OrderDetailPage() {
-	const params = useParams<{ id: string }>();
+type PageProps = {
+	params: { id: string }
+	searchParams: { [key: string]: string | string[] | undefined }
+}
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+	// В реальном приложении здесь будет запрос к API
+	return {
+		title: mockOrder.title,
+		description: mockOrder.description.substring(0, 160),
+	}
+}
+
+export default function OrderDetailPage({ params }: PageProps) {
 	return (
-		<div className="container mx-auto py-8 px-4">
+		<div className="space-y-6 py-6 pb-16">
+			<div className="space-y-0.5">
+				<h2 className="text-2xl font-bold tracking-tight">{mockOrder.title}</h2>
+				<p className="text-muted-foreground">
+					Детальная информация о заказе
+				</p>
+			</div>
+			<Separator />
 			<div className="grid md:grid-cols-3 gap-6">
 				<div className="md:col-span-2 space-y-6">
 					<Card>
 						<CardHeader>
 							<div className="flex justify-between items-start">
-								<CardTitle className="text-2xl">{mockOrder.title}</CardTitle>
-								<Badge
-									variant="secondary"
-									className="bg-green-100 text-green-800">
-									{mockOrder.status === "open" ? "Открыт" : "Закрыт"}
+								<CardTitle className="text-xl font-semibold">Описание</CardTitle>
+								<Badge variant="secondary">
+									Открыт
 								</Badge>
-							</div>
-							<div className="text-sm text-gray-500 mt-2">
-								Создан: {new Date(mockOrder.createdAt).toLocaleDateString()}
 							</div>
 						</CardHeader>
 						<CardContent>
-							<div className="prose max-w-none">
-								<p className="whitespace-pre-wrap">{mockOrder.description}</p>
+							<div className="prose dark:prose-invert max-w-none">
+								<p className="text-muted-foreground whitespace-pre-wrap">{mockOrder.description}</p>
 							</div>
-							
-							<div className="mt-6">
-								<h3 className="font-semibold mb-2">Требования:</h3>
-								<ul className="list-disc pl-5 space-y-1">
-									{mockOrder.requirements.map((req, index) => (
-										<li key={index}>{req}</li>
-									))}
-								</ul>
-							</div>
-
 							<div className="mt-6">
 								<h3 className="font-semibold mb-2">Требуемые навыки:</h3>
 								<div className="flex flex-wrap gap-2">
@@ -98,26 +102,6 @@ export default function OrderDetailPage() {
 											{skill}
 										</Badge>
 									))}
-								</div>
-							</div>
-
-							<div className="mt-6">
-								<h3 className="font-semibold mb-2">Приложенные файлы:</h3>
-								<div className="space-y-2">
-									{mockOrder.attachments.map((file) => (
-										<div key={file.id} className="flex items-center gap-2 text-sm">
-											<span>{file.name}</span>
-											<span className="text-gray-500">({file.size} MB)</span>
-										</div>
-									))}
-								</div>
-							</div>
-
-							<div className="mt-6">
-								<h3 className="font-semibold mb-2">Статистика:</h3>
-								<div className="flex gap-4 text-sm text-gray-500">
-									<div>Просмотров: {mockOrder.views}</div>
-									<div>Откликов: {mockOrder.proposals}</div>
 								</div>
 							</div>
 						</CardContent>
@@ -130,19 +114,17 @@ export default function OrderDetailPage() {
 							<div className="text-lg font-semibold mb-4">Детали проекта</div>
 							<div className="space-y-4">
 								<div>
-									<div className="text-sm text-gray-500">Бюджет</div>
-									<div className="font-medium">
-										{mockOrder.budget.toLocaleString()} ₽
-									</div>
+									<div className="text-sm text-muted-foreground">Бюджет</div>
+									<div className="font-medium">{mockOrder.budget.toLocaleString()} ₽</div>
 								</div>
 								<div>
-									<div className="text-sm text-gray-500">Дедлайн</div>
+									<div className="text-sm text-muted-foreground">Дедлайн</div>
 									<div className="font-medium">
 										{new Date(mockOrder.deadline).toLocaleDateString()}
 									</div>
 								</div>
 								<div>
-									<div className="text-sm text-gray-500">Категория</div>
+									<div className="text-sm text-muted-foreground">Категория</div>
 									<div className="font-medium">{mockOrder.category}</div>
 								</div>
 								<Button className="w-full">Откликнуться</Button>
@@ -155,40 +137,20 @@ export default function OrderDetailPage() {
 							<div className="text-lg font-semibold mb-4">О заказчике</div>
 							<div className="flex items-center gap-4 mb-4">
 								<Avatar className="h-12 w-12">
-									<AvatarImage
-										src={mockOrder.client.avatar}
-										alt={mockOrder.client.name}
-									/>
+									<AvatarImage src={mockOrder.client.avatar} alt={mockOrder.client.name} />
 									<AvatarFallback>
 										{mockOrder.client.name.substring(0, 2)}
 									</AvatarFallback>
 								</Avatar>
 								<div>
 									<div className="font-medium">{mockOrder.client.name}</div>
-									<div className="text-sm text-gray-500">
+									<div className="text-sm text-muted-foreground">
 										Рейтинг: {mockOrder.client.rating}
 									</div>
 								</div>
 							</div>
-							<div className="space-y-2 text-sm">
-								<div className="text-gray-500">
-									{mockOrder.client.description}
-								</div>
-								<div className="text-gray-500">
-									Местоположение: {mockOrder.client.location}
-								</div>
-								<div className="text-gray-500">
-									На платформе с: {new Date(mockOrder.client.registeredAt).toLocaleDateString()}
-								</div>
-								<div className="text-gray-500">
-									Завершенных проектов: {mockOrder.client.completedProjects}
-								</div>
-								<div className="text-gray-500">
-									Успешных сделок: {mockOrder.client.successRate}%
-								</div>
-								<div className="text-gray-500">
-									Потрачено на проекты: {mockOrder.client.totalSpent.toLocaleString()} ₽
-								</div>
+							<div className="text-sm text-muted-foreground">
+								Завершенных проектов: {mockOrder.client.completedProjects}
 							</div>
 						</CardContent>
 					</Card>

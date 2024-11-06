@@ -21,7 +21,7 @@ export function OrderCard({ order, role }: OrderCardProps) {
             <div>
               <Link 
                 href={`/orders/${order.id}`}
-                className="text-lg sm:text-xl font-semibold hover:text-blue-600 transition-colors line-clamp-2"
+                className="text-lg sm:text-xl font-semibold hover:text-primary transition-colors line-clamp-2"
               >
                 {order.title}
               </Link>
@@ -34,7 +34,7 @@ export function OrderCard({ order, role }: OrderCardProps) {
               </div>
             </div>
 
-            <p className="text-gray-600 line-clamp-3">{order.description}</p>
+            <p className="text-muted-foreground line-clamp-3">{order.description}</p>
 
             <div className="flex flex-wrap gap-2">
               {order.skills.map((skill) => (
@@ -47,7 +47,7 @@ export function OrderCard({ order, role }: OrderCardProps) {
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={order.client.avatar} />
+                  <AvatarImage src={order.client.avatar} alt={order.client.name} />
                   <AvatarFallback>{order.client.name.substring(0, 2)}</AvatarFallback>
                 </Avatar>
                 <div className="text-sm">

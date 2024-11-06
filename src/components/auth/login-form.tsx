@@ -28,8 +28,8 @@ export function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Вход в систему</h1>
+    <div className="w-full max-w-md p-8 bg-background border rounded-lg shadow-sm">
+      <h1 className="text-2xl font-bold mb-6 text-center text-foreground">Вход в систему</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
@@ -56,11 +56,11 @@ export function LoginForm() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Checkbox id="remember" />
-            <Label htmlFor="remember">Запомнить меня</Label>
+            <Label htmlFor="remember" className="text-muted-foreground">Запомнить меня</Label>
           </div>
           <Link
             href="/forgot-password"
-            className="text-sm text-blue-600 hover:underline"
+            className="text-sm text-primary hover:underline"
           >
             Забыли пароль?
           </Link>
@@ -70,8 +70,8 @@ export function LoginForm() {
         </Button>
       </form>
       <div className="mt-4 text-center">
-        <span className="text-sm text-gray-600">Нет аккаунта? </span>
-        <Link href="/register" className="text-sm text-blue-600 hover:underline">
+        <span className="text-sm text-muted-foreground">Нет аккаунта? </span>
+        <Link href="/register" className="text-sm text-primary hover:underline">
           Зарегистрироваться
         </Link>
       </div>

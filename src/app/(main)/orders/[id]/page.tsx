@@ -23,7 +23,14 @@ const mockOrder = {
   }
 };
 
-export default function OrderDetailPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function OrderDetailPage({ params, searchParams }: PageProps) {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="grid md:grid-cols-3 gap-6">
@@ -105,4 +112,4 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       </div>
     </div>
   );
-} 
+}

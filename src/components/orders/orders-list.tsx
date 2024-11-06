@@ -38,7 +38,7 @@ const mockOrders: Order[] = [
     title: "Разработка веб-приложения",
     description: "Требуется разработать веб-приложение для управления задачами...",
     budget: 100000,
-    deadline: "2024-04-01",
+    deadline: "2024-04-01", 
     status: "open",
     category: "Web Development",
     skills: ["React", "Node.js", "TypeScript"],
@@ -49,7 +49,54 @@ const mockOrders: Order[] = [
       avatar: "/avatars/client1.jpg"
     }
   },
-  // Добавьте больше моковых данных по необходимости
+  {
+    id: "2", 
+    title: "Мобильное приложение для доставки еды",
+    description: "Нужно разработать мобильное приложение для сервиса доставки еды...",
+    budget: 200000,
+    deadline: "2024-05-15",
+    status: "open",
+    category: "Mobile Development",
+    skills: ["React Native", "Firebase", "Redux"],
+    createdAt: "2024-03-05",
+    client: {
+      id: "c2",
+      name: "Мария Сидорова",
+      avatar: "/avatars/client2.jpg"
+    }
+  },
+  {
+    id: "3",
+    title: "Редизайн корпоративного сайта",
+    description: "Требуется обновить дизайн существующего корпоративного сайта...", 
+    budget: 80000,
+    deadline: "2024-03-30",
+    status: "open",
+    category: "Design",
+    skills: ["Figma", "UI/UX", "Web Design"],
+    createdAt: "2024-03-02",
+    client: {
+      id: "c3", 
+      name: "Алексей Кузнецов",
+      avatar: "/avatars/client3.jpg"
+    }
+  },
+  {
+    id: "4",
+    title: "Разработка CRM системы",
+    description: "Необходимо разработать CRM систему для управления клиентами...",
+    budget: 300000,
+    deadline: "2024-06-01",
+    status: "open", 
+    category: "Web Development",
+    skills: ["Vue.js", "Laravel", "MySQL"],
+    createdAt: "2024-03-07",
+    client: {
+      id: "c4",
+      name: "Ольга Николаева",
+      avatar: "/avatars/client4.jpg"
+    }
+  }
 ];
 
 export function OrdersList() {

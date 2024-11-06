@@ -62,14 +62,12 @@ type PageProps = {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-	// В реальном приложении здесь будет запрос к API
 	return {
 		title: mockOrder.title,
 		description: mockOrder.description.substring(0, 160),
 	}
 }
-
-export default function OrderDetailPage({ params }: PageProps) {
+export default function OrderDetailPage() {
 	return (
 		<div className="space-y-6 py-6 pb-16">
 			<div className="space-y-0.5">

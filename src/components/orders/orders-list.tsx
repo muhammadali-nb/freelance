@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Order } from "@/lib/types/order";
-import { OrderCard } from "./order-card";
+import { OrderCard } from "@/components/orders/order-card";
+import { useRole } from "@/context/role-context";
 import {
   Sheet,
   SheetContent,
@@ -29,9 +30,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useRole } from "@/context/role-context";
 
-// Моковые данные для примера
+// Моковые данные
 const mockOrders: Order[] = [
   {
     id: "1",
@@ -53,31 +53,31 @@ const mockOrders: Order[] = [
     id: "2", 
     title: "Мобильное приложение для доставки еды",
     description: "Нужно разработать мобильное приложение для сервиса доставки еды...",
-    budget: 200000,
-    deadline: "2024-05-15",
+    budget: 150000,
+    deadline: "2024-05-01",
     status: "open",
     category: "Mobile Development",
     skills: ["React Native", "Firebase", "Redux"],
-    createdAt: "2024-03-05",
+    createdAt: "2024-03-02",
     client: {
-      id: "c2",
-      name: "Мария Сидорова",
+      id: "c2", 
+      name: "Мария Иванова",
       avatar: "/avatars/client2.jpg"
     }
   },
   {
     id: "3",
     title: "Редизайн корпоративного сайта",
-    description: "Требуется обновить дизайн существующего корпоративного сайта...", 
+    description: "Требуется обновить дизайн и улучшить юзабилити корпоративного сайта...",
     budget: 80000,
-    deadline: "2024-03-30",
-    status: "open",
+    deadline: "2024-04-15",
+    status: "open", 
     category: "Design",
-    skills: ["Figma", "UI/UX", "Web Design"],
-    createdAt: "2024-03-02",
+    skills: ["UI/UX", "Figma", "Web Design"],
+    createdAt: "2024-03-03",
     client: {
-      id: "c3", 
-      name: "Алексей Кузнецов",
+      id: "c3",
+      name: "Алексей Смирнов",
       avatar: "/avatars/client3.jpg"
     }
   },
@@ -85,16 +85,32 @@ const mockOrders: Order[] = [
     id: "4",
     title: "Разработка CRM системы",
     description: "Необходимо разработать CRM систему для управления клиентами...",
-    budget: 300000,
+    budget: 200000,
     deadline: "2024-06-01",
-    status: "open", 
+    status: "open",
     category: "Web Development",
-    skills: ["Vue.js", "Laravel", "MySQL"],
-    createdAt: "2024-03-07",
+    skills: ["Angular", "MongoDB", "Express"],
+    createdAt: "2024-03-04",
     client: {
       id: "c4",
-      name: "Ольга Николаева",
+      name: "Елена Козлова",
       avatar: "/avatars/client4.jpg"
+    }
+  },
+  {
+    id: "5",
+    title: "Создание игрового приложения",
+    description: "Требуется разработать 2D игру для мобильных устройств...",
+    budget: 120000,
+    deadline: "2024-05-15",
+    status: "open",
+    category: "Game Development",
+    skills: ["Unity", "C#", "2D Animation"],
+    createdAt: "2024-03-05",
+    client: {
+      id: "c5",
+      name: "Дмитрий Волков",
+      avatar: "/avatars/client5.jpg"
     }
   }
 ];

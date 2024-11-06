@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Metadata } from "next";
 
 // В реальном приложении данные будут загружаться с сервера
 const mockOrder = {
@@ -23,14 +24,18 @@ const mockOrder = {
   }
 };
 
+export const metadata: Metadata = {
+  title: mockOrder.title,
+  description: mockOrder.description.substring(0, 160),
+};
+
 interface PageProps {
   params: {
     id: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function OrderDetailPage({ params, searchParams }: PageProps) {
+export default function OrderDetailPage({ params }: PageProps) {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="grid md:grid-cols-3 gap-6">
@@ -91,7 +96,7 @@ export default async function OrderDetailPage({ params, searchParams }: PageProp
               <div className="text-lg font-semibold mb-4">О заказчике</div>
               <div className="flex items-center gap-4 mb-4">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage src={mockOrder.client.avatar} />
+                  <AvatarImage src={mockOrder.client.avatar} alt={mockOrder.client.name} />
                   <AvatarFallback>
                     {mockOrder.client.name.substring(0, 2)}
                   </AvatarFallback>

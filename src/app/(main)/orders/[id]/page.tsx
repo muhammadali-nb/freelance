@@ -1,11 +1,12 @@
-
+'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Metadata } from "next";
+import { useParams } from "next/navigation";
+
 
 // В реальном приложении данные будут загружаться с сервера
 const mockOrder = {
@@ -56,18 +57,9 @@ const mockOrder = {
 	]
 };
 
-type PageProps = {
-	params: { id: string }
-	searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-	return {
-		title: mockOrder.title,
-		description: mockOrder.description.substring(0, 160),
-	}
-}
 export default function OrderDetailPage() {
+    const params = useParams<{ id: string }>()
+
 	return (
 		<div className="space-y-6 py-6 pb-16">
 			<div className="space-y-0.5">

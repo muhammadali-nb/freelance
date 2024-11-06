@@ -8,7 +8,7 @@ import { Metadata } from "next";
 const mockOrder = {
   id: "1",
   title: "Разработка веб-приложения",
-  description: "Требуется разработать веб-приложение для управления задачами. Необходимо создать современный интерфейс с использованием React и TypeScript. Бэкенд должен быть реализован на Node.js с использованием Express. База данных - PostgreSQL.\n\nОсновные требования:\n- Авторизация и регистрация пользователей\n- Создание и управление проектами\n- Система уведомлений\n- Отчеты и аналитика\n\nВесь код должен быть покрыт тестами.",
+  description: "Требуется разработать веб-приложение для управления задачами...",
   budget: 100000,
   deadline: "2024-04-01",
   status: "open",
@@ -24,18 +24,20 @@ const mockOrder = {
   }
 };
 
-export const metadata: Metadata = {
-  title: mockOrder.title,
-  description: mockOrder.description.substring(0, 160),
-};
-
-interface PageProps {
-  params: {
-    id: string;
-  };
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function OrderDetailPage({ params }: PageProps) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // В реальном приложении здесь будет запрос к API
+  return {
+    title: mockOrder.title,
+    description: mockOrder.description.substring(0, 160),
+  }
+}
+
+export default function OrderDetailPage({ params }: Props) {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="grid md:grid-cols-3 gap-6">

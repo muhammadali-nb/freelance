@@ -44,7 +44,6 @@ const Navbar = () => {
 						</div>
 					</div>
 					<div className="hidden lg:ml-6 lg:flex lg:items-center space-x-4">
-					
 						{isAuthenticated && user ? (
 							<DropdownMenu>
 								<DropdownMenuTrigger className="focus:outline-none">
@@ -112,7 +111,7 @@ const Navbar = () => {
 			{/* Мобильное меню */}
 			<div
 				className={cn(
-					"fixed inset-0 bg-black bg-opacity-50 lg:hidden transition-opacity duration-300",
+					"fixed inset-0 bg-black bg-opacity-50 lg:hidden transition-opacity duration-300 z-50",
 					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
 				)}
 				onClick={toggleMenu}>

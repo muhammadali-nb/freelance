@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useParams } from "next/navigation";
-
 
 // В реальном приложении данные будут загружаться с сервера
 const mockOrder = {
@@ -29,8 +28,9 @@ const mockOrder = {
 		totalSpent: 750000,
 		location: "Москва",
 		registeredAt: "2023-01-15",
-		description: "Руководитель IT-отдела в крупной компании. Ищем талантливых разработчиков для долгосрочного сотрудничества.",
-		successRate: 95
+		description:
+			"Руководитель IT-отдела в крупной компании. Ищем талантливых разработчиков для долгосрочного сотрудничества.",
+		successRate: 95,
 	},
 	proposals: 12,
 	views: 156,
@@ -39,32 +39,34 @@ const mockOrder = {
 			id: "a1",
 			name: "technical_requirements.pdf",
 			size: 2.5,
-			type: "pdf"
+			type: "pdf",
 		},
 		{
-			id: "a2", 
+			id: "a2",
 			name: "ui_mockups.fig",
 			size: 15.8,
-			type: "figma"
-		}
+			type: "figma",
+		},
 	],
 	requirements: [
 		"Опыт работы с React и TypeScript от 2 лет",
 		"Знание принципов построения REST API",
 		"Опыт работы с PostgreSQL",
 		"Умение писать чистый и поддерживаемый код",
-		"Опыт работы в команде"
-	]
+		"Опыт работы в команде",
+	],
 };
 
 export default function OrderDetailPage() {
-    const params = useParams<{ id: string }>()
+	const params = useParams<{ id: string }>();
 
 	return (
 		<div className="space-y-6 py-6 pb-16">
 			<div className="space-y-0.5">
-				<h2 className="text-2xl font-bold tracking-tight">{mockOrder.title}</h2>
-				<p className="text-muted-foreground">
+				<h2 className="text-lg md:text-2xl font-bold tracking-tight">
+					{mockOrder.title}
+				</h2>
+				<p className="text-muted-foreground text-sm md:text-base">
 					Детальная информация о заказе
 				</p>
 			</div>
@@ -74,23 +76,61 @@ export default function OrderDetailPage() {
 					<Card>
 						<CardHeader>
 							<div className="flex justify-between items-start">
-								<CardTitle className="text-xl font-semibold">Описание</CardTitle>
-								<Badge variant="secondary">
-									Открыт
-								</Badge>
+								<CardTitle className="text-md md:text-xl font-semibold">
+									Описание
+								</CardTitle>
+								<Badge variant="secondary">Открыт</Badge>
 							</div>
 						</CardHeader>
 						<CardContent>
 							<div className="prose dark:prose-invert max-w-none">
-								<p className="text-muted-foreground whitespace-pre-wrap">{mockOrder.description}</p>
+								<p className="text-muted-foreground whitespace-pre-wrap text-sm md:text-base">
+									{mockOrder.description}
+								</p>
 							</div>
 							<div className="mt-6">
-								<h3 className="font-semibold mb-2">Требуемые навыки:</h3>
+								<h3 className="text-sm md:text-base font-semibold mb-2">
+									Требуемые навыки:
+								</h3>
 								<div className="flex flex-wrap gap-2">
 									{mockOrder.skills.map((skill) => (
-										<Badge key={skill} variant="outline">
+										<Badge
+											key={skill}
+											variant="outline"
+											className="text-xs md:text-sm">
 											{skill}
 										</Badge>
+									))}
+								</div>
+							</div>
+							<div className="mt-6">
+								<h3 className="text-sm md:text-base font-semibold mb-2">
+									Требования:
+								</h3>
+								<ul className="list-disc list-inside space-y-1">
+									{mockOrder.requirements.map((req) => (
+										<li
+											key={req}
+											className="text-xs md:text-sm text-muted-foreground">
+											{req}
+										</li>
+									))}
+								</ul>
+							</div>
+							<div className="mt-6">
+								<h3 className="text-sm md:text-base font-semibold mb-2">
+									Вложения:
+								</h3>
+								<div className="space-y-2">
+									{mockOrder.attachments.map((file) => (
+										<div
+											key={file.id}
+											className="flex items-center justify-between p-2 border rounded">
+											<span className="text-xs md:text-sm">{file.name}</span>
+											<span className="text-xs md:text-sm text-muted-foreground">
+												{file.size} MB
+											</span>
+										</div>
 									))}
 								</div>
 							</div>
@@ -101,46 +141,102 @@ export default function OrderDetailPage() {
 				<div className="space-y-6">
 					<Card>
 						<CardContent className="pt-6">
-							<div className="text-lg font-semibold mb-4">Детали проекта</div>
-							<div className="space-y-4">
+							<div className="text-md md:text-lg font-semibold mb-4">
+								Детали проекта
+							</div>
+							<div className="space-y-2 sm:space-y-4">
 								<div>
-									<div className="text-sm text-muted-foreground">Бюджет</div>
-									<div className="font-medium">{mockOrder.budget.toLocaleString()} ₽</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">
+										Бюджет
+									</div>
+									<div className="text-sm sm:text-base font-medium">
+										{mockOrder.budget.toLocaleString()} ₽
+									</div>
 								</div>
 								<div>
-									<div className="text-sm text-muted-foreground">Дедлайн</div>
-									<div className="font-medium">
+									<div className="text-xs sm:text-sm text-muted-foreground">
+										Дедлайн
+									</div>
+									<div className="text-sm sm:text-base font-medium">
 										{new Date(mockOrder.deadline).toLocaleDateString()}
 									</div>
 								</div>
 								<div>
-									<div className="text-sm text-muted-foreground">Категория</div>
-									<div className="font-medium">{mockOrder.category}</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">
+										Категория
+									</div>
+									<div className="text-sm sm:text-base font-medium">
+										{mockOrder.category}
+									</div>
 								</div>
-								<Button className="w-full">Откликнуться</Button>
+								<div>
+									<div className="text-xs sm:text-sm text-muted-foreground">
+										Просмотры
+									</div>
+									<div className="text-sm sm:text-base font-medium">
+										{mockOrder.views}
+									</div>
+								</div>
+								<div>
+									<div className="text-xs sm:text-sm text-muted-foreground">
+										Откликов
+									</div>
+									<div className="text-sm sm:text-base font-medium">
+										{mockOrder.proposals}
+									</div>
+								</div>
+								<Button className="w-full text-sm sm:text-base">
+									Откликнуться
+								</Button>
 							</div>
 						</CardContent>
 					</Card>
 
 					<Card>
 						<CardContent className="pt-6">
-							<div className="text-lg font-semibold mb-4">О заказчике</div>
+							<div className="text-md md:text-lg font-semibold mb-4">
+								О заказчике
+							</div>
 							<div className="flex items-center gap-4 mb-4">
-								<Avatar className="h-12 w-12">
-									<AvatarImage src={mockOrder.client.avatar} alt={mockOrder.client.name} />
+								<Avatar className="h-10 w-10 md:h-12 md:w-12">
+									<AvatarImage
+										src={mockOrder.client.avatar}
+										alt={mockOrder.client.name}
+									/>
 									<AvatarFallback>
 										{mockOrder.client.name.substring(0, 2)}
 									</AvatarFallback>
 								</Avatar>
 								<div>
-									<div className="font-medium">{mockOrder.client.name}</div>
-									<div className="text-sm text-muted-foreground">
+									<div className="text-sm md:text-base font-medium">
+										{mockOrder.client.name}
+									</div>
+									<div className="text-xs md:text-sm text-muted-foreground">
 										Рейтинг: {mockOrder.client.rating}
 									</div>
 								</div>
 							</div>
-							<div className="text-sm text-muted-foreground">
-								Завершенных проектов: {mockOrder.client.completedProjects}
+							<div className="space-y-2">
+								<div className="text-xs md:text-sm text-muted-foreground">
+									Местоположение: {mockOrder.client.location}
+								</div>
+								<div className="text-xs md:text-sm text-muted-foreground">
+									Завершенных проектов: {mockOrder.client.completedProjects}
+								</div>
+								<div className="text-xs md:text-sm text-muted-foreground">
+									Успешных сделок: {mockOrder.client.successRate}%
+								</div>
+								<div className="text-xs md:text-sm text-muted-foreground">
+									Потрачено всего:{" "}
+									{mockOrder.client.totalSpent.toLocaleString()} ₽
+								</div>
+								<div className="text-xs md:text-sm text-muted-foreground">
+									На платформе с:{" "}
+									{new Date(mockOrder.client.registeredAt).toLocaleDateString()}
+								</div>
+								<div className="mt-4 text-xs md:text-sm">
+									{mockOrder.client.description}
+								</div>
 							</div>
 						</CardContent>
 					</Card>

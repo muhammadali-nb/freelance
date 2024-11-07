@@ -10,22 +10,22 @@ import {
 
 export function RatesStep() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <Label>Почасовая ставка</Label>
-        <div className="flex items-center space-x-2">
+        <Label className="text-sm sm:text-base">Почасовая ставка</Label>
+        <div className="flex items-center space-x-2 mt-1 sm:mt-2">
           <Input
             type="number"
             placeholder="0"
-            className="mt-1"
+            className="text-sm sm:text-base h-9 sm:h-10"
           />
-          <span className="text-lg">₽/час</span>
+          <span className="text-base sm:text-lg text-foreground">₽/час</span>
         </div>
       </div>
       <div>
-        <Label>Предпочитаемая занятость</Label>
+        <Label className="text-sm sm:text-base">Предпочитаемая занятость</Label>
         <Select>
-          <SelectTrigger>
+          <SelectTrigger className="mt-1 sm:mt-2 h-9 sm:h-10 text-sm sm:text-base">
             <SelectValue placeholder="Выберите тип занятости" />
           </SelectTrigger>
           <SelectContent>
@@ -36,9 +36,9 @@ export function RatesStep() {
         </Select>
       </div>
       <div>
-        <Label>Доступность в неделю</Label>
+        <Label className="text-sm sm:text-base">Доступность в неделю</Label>
         <Select>
-          <SelectTrigger>
+          <SelectTrigger className="mt-1 sm:mt-2 h-9 sm:h-10 text-sm sm:text-base">
             <SelectValue placeholder="Выберите количество часов" />
           </SelectTrigger>
           <SelectContent>

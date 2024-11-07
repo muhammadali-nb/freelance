@@ -95,7 +95,7 @@ const Navbar = () => {
 					<div className="flex items-center lg:hidden">
 						<button
 							onClick={toggleMenu}
-							className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition duration-150 ease-in-out"
+							className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring transition duration-150 ease-in-out"
 							aria-expanded="false">
 							<span className="sr-only">Открыть главное меню</span>
 							{isOpen ? (
@@ -111,26 +111,26 @@ const Navbar = () => {
 			{/* Мобильное меню */}
 			<div
 				className={cn(
-					"fixed inset-0 bg-black bg-opacity-50 lg:hidden transition-opacity duration-300 z-50",
+					"fixed inset-0 bg-black/50 lg:hidden transition-opacity duration-300 z-50",
 					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
 				)}
 				onClick={toggleMenu}>
 				<div
 					className={cn(
-						"fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-xl transform transition-transform duration-300 ease-in-out",
+						"fixed inset-y-0 right-0 w-full max-w-xs bg-background border-l shadow-xl transform transition-transform duration-300 ease-in-out",
 						isOpen ? "translate-x-0" : "translate-x-full"
 					)}
 					onClick={(e) => e.stopPropagation()}>
 					<div className="pt-5 pb-6 px-4">
 						<div className="flex items-center justify-between mb-8">
-							<div className="font-bold text-xl">Меню</div>
+							<div className="font-bold text-xl text-foreground">Меню</div>
 							<button
 								onClick={toggleMenu}
-								className="rounded-md p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-								<X className="h-6 w-6" />
+								className="rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring">
+								<X className="h-5 w-5 sm:h-6 sm:w-6" />
 							</button>
 						</div>
-						<div className="space-y-4">
+						<div className="space-y-1 sm:space-y-3">
 							<MobileNavLink href="/" onClick={toggleMenu}>
 								Главная
 							</MobileNavLink>
@@ -142,7 +142,7 @@ const Navbar = () => {
 							</MobileNavLink>
 						</div>
 						{isAuthenticated && user ? (
-							<div className="mt-6 pt-6 border-t border-gray-200">
+							<div className="mt-6 pt-6 border-t border-border">
 								<div className="flex items-center px-4 mb-4">
 									<div className="flex-shrink-0">
 										<Avatar>
@@ -153,10 +153,10 @@ const Navbar = () => {
 										</Avatar>
 									</div>
 									<div className="ml-3">
-										<div className="text-base font-medium text-gray-800">
+										<div className="text-sm sm:text-base font-medium text-foreground">
 											{user.name}
 										</div>
-										<div className="text-sm font-medium text-gray-500">
+										<div className="text-xs sm:text-sm font-medium text-muted-foreground">
 											{user.email}
 										</div>
 									</div>
@@ -182,16 +182,18 @@ const Navbar = () => {
 									</MobileMenuItem>
 									<button
 										onClick={handleLogout}
-										className="flex items-center w-full px-4 py-2 text-base font-medium text-red-600 hover:bg-gray-50">
-										<LogOut className="mr-3 h-5 w-5" />
+										className="flex items-center w-full px-4 py-2 text-sm sm:text-base font-medium text-destructive hover:bg-accent rounded-md">
+										<LogOut className="mr-3 h-4 w-4 sm:h-5 sm:w-5" />
 										Выйти
 									</button>
 								</div>
 							</div>
 						) : (
-							<div className="mt-6 pt-6 border-t border-gray-200">
+							<div className="mt-6 pt-6 border-t border-border">
 								<Link href="/login" className="w-full" onClick={toggleMenu}>
-									<Button variant="outline" className="w-full">
+									<Button
+										variant="outline"
+										className="w-full text-sm sm:text-base">
 										Войти
 									</Button>
 								</Link>
@@ -213,7 +215,7 @@ const NavLink = ({
 }) => (
 	<Link
 		href={href}
-		className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition duration-150 ease-in-out">
+		className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-muted-foreground hover:text-foreground hover:border-border transition duration-150 ease-in-out">
 		{children}
 	</Link>
 );
@@ -229,7 +231,7 @@ const MobileNavLink = ({
 }) => (
 	<Link
 		href={href}
-		className="block px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition duration-150 ease-in-out"
+		className="block px-4 py-2 text-base font-medium text-foreground hover:bg-accent rounded-md transition duration-150 ease-in-out"
 		onClick={onClick}>
 		{children}
 	</Link>
@@ -248,7 +250,7 @@ const MobileMenuItem = ({
 }) => (
 	<Link
 		href={href}
-		className="flex items-center px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+		className="flex items-center px-4 py-2 text-base font-medium text-foreground hover:bg-accent rounded-md transition duration-150 ease-in-out"
 		onClick={onClick}>
 		<Icon className="mr-3 h-5 w-5" />
 		{children}

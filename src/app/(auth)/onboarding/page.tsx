@@ -55,7 +55,7 @@ export default function OnboardingPage() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen bg-background p-4 sm:p-6 md:p-8">
+		<div className="flex flex-col items-center justify-center min-h-screen bg-background sm:p-6 md:p-8">
 			<div className="w-full max-w-2xl bg-background border rounded-lg shadow-sm p-4 sm:p-6 md:p-8">
 				<div className="mb-6 sm:mb-8">
 					<h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-center text-foreground">

@@ -4,6 +4,7 @@ import { Message } from "@/components/chat/message";
 import { MessageInput } from "@/components/chat/message-input";
 import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useParams } from "next/navigation";
 
 // Моковые данные для примера
 const mockMessages = [
@@ -30,7 +31,8 @@ const mockMessages = [
   // Добавьте больше сообщений по необходимости
 ];
 
-export default function ChatPage({ params }: { params: { userId: string } }) {
+export default function ChatPage() {
+  const params = useParams<{ userId: string;}>()
   const [messages, setMessages] = useState(mockMessages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const currentUserId = "c1"; // В реальном приложении получайте из контекста аутентификации

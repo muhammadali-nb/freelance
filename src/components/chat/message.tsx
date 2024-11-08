@@ -19,11 +19,8 @@ import {
 } from "@/components/ui/popover";
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
-
-const EmojiPicker = dynamic(() => import('@emoji-mart/react'), {
-	ssr: false,
-	loading: () => <div className="p-4">Загрузка...</div>
-});
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 
 interface MessageProps {
 	content: string;
@@ -116,17 +113,14 @@ export function Message({
 									<Smile className="h-3 w-3 sm:h-4 sm:w-4" />
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent className="w-full p-0" align="start">
-								<EmojiPicker
+							<PopoverContent className="w-auto p-0" align="start">
+								<Picker
+									data={data}
 									onEmojiSelect={handleEmojiSelect}
-									theme="light"
 									locale="ru"
-									data={async () => {
-										const response = await fetch(
-											'https://cdn.jsdelivr.net/npm/@emoji-mart/data'
-										);
-										return response.json();
-									}}
+									previewPosition="none"
+									skinTonePosition="none"
+									theme={theme === 'dark' ? 'dark' : 'light'}
 								/>
 							</PopoverContent>
 						</Popover>

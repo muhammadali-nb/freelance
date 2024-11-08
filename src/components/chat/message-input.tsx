@@ -24,11 +24,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import dynamic from 'next/dynamic';
-
-const EmojiPicker = dynamic(() => import('@emoji-mart/react'), {
-	ssr: false,
-	loading: () => <div className="p-4">Загрузка...</div>
-});
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 
 interface MessageInputProps {
 	onSend: (message: string, attachments?: File[]) => void;
@@ -178,10 +175,13 @@ export function MessageInput({
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent className="w-auto p-0" align="end">
-								<EmojiPicker
-									data={require('@emoji-mart/data')}
+								<Picker
+									data={data}
 									onEmojiSelect={handleEmojiSelect}
-									theme="light"
+									locale="ru"
+									previewPosition="none"
+									skinTonePosition="none"
+									theme={theme === 'dark' ? 'dark' : 'light'}
 								/>
 							</PopoverContent>
 						</Popover>

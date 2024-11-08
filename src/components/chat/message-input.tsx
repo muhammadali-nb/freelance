@@ -126,7 +126,7 @@ export function MessageInput({
 						onChange={(e) => setMessage(e.target.value)}
 						onKeyDown={handleKeyDown}
 						placeholder="Введите сообщение..."
-						className="min-h-[36px] sm:min-h-[40px] md:min-h-[44px] max-h-[100px] sm:max-h-[120px] text-xs sm:text-sm resize-none"
+						className="min-h-[36px] sm:min-h-[40px] md:min-h-[44px] max-h-[100px] sm:max-h-[120px] text-[16px] resize-none"
 					/>
 				</div>
 

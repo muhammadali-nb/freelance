@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Bookmark } from "lucide-react";
 import Link from "next/link";
 import { UserRole } from "@/context/role-context";
+import { ResponsesBadge } from "@/components/notifications/responses-badge";
 
 interface OrderCardProps {
 	order: Order;
 	role: UserRole;
+	responsesCount?: number;
 }
 
-export function OrderCard({ order, role }: OrderCardProps) {
+export function OrderCard({ order, role, responsesCount = 0 }: OrderCardProps) {
 	return (
 		<Card className="hover:shadow-md transition-shadow">
 			<CardContent className="p-4 sm:p-6">
@@ -93,6 +95,17 @@ export function OrderCard({ order, role }: OrderCardProps) {
 						</div>
 					</div>
 				</div>
+				{role === "client" && (
+					<div className="mt-4 flex justify-between items-center">
+						<Link
+							href={`/orders/${order.id}/responses`}
+							className="text-sm text-primary hover:underline flex items-center"
+						>
+							Отклики
+							<ResponsesBadge count={responsesCount} />
+						</Link>
+					</div>
+				)}
 			</CardContent>
 		</Card>
 	);

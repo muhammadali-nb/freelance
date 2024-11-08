@@ -4,6 +4,7 @@ import { inter } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/context/auth-context";
 import { RoleProvider } from "@/context/role-context";
+import { NotificationsProvider } from "@/context/notifications-context";
 
 export const metadata: Metadata = {
 	title: "Freelance Platform",
@@ -17,16 +18,18 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="ru" suppressHydrationWarning>
-			<body className={`${inter.className} antialiased`}>
+			<body className={inter.className}>
 				<AuthProvider>
 					<RoleProvider>
-						<ThemeProvider
-							attribute="class"
-							defaultTheme="system"
-							enableSystem
-							disableTransitionOnChange>
-							{children}
-						</ThemeProvider>
+						<NotificationsProvider>
+							<ThemeProvider
+								attribute="class"
+								defaultTheme="system"
+								enableSystem
+								disableTransitionOnChange>
+								{children}
+							</ThemeProvider>
+						</NotificationsProvider>
 					</RoleProvider>
 				</AuthProvider>
 			</body>

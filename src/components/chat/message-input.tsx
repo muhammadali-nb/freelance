@@ -26,6 +26,7 @@ import {
 import dynamic from 'next/dynamic';
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import { useTheme } from "next-themes";
 
 interface MessageInputProps {
 	onSend: (message: string, attachments?: File[]) => void;
@@ -47,6 +48,7 @@ export function MessageInput({
 	const [isRecording, setIsRecording] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const imageInputRef = useRef<HTMLInputElement>(null);
+	const { theme } = useTheme();
 
 	const handleSend = () => {
 		if (message.trim() || attachments.length > 0) {

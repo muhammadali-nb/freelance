@@ -21,6 +21,7 @@ import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import { useTheme } from "next-themes";
 
 interface MessageProps {
 	content: string;
@@ -62,6 +63,8 @@ export function Message({
 	onReact,
 	reactions = []
 }: MessageProps) {
+	const { theme } = useTheme();
+
 	// Используем useMemo для мемоизации реакций
 	const messageReactions = useMemo(() => reactions, [reactions]);
 

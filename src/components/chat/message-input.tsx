@@ -1,39 +1,30 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import {
-	SendHorizontal,
-	Paperclip,
-	Image as ImageIcon,
-	Smile,
-	X,
-	Mic,
-	MoreHorizontal
+    Image as ImageIcon,
+    Mic,
+    MoreHorizontal,
+    Paperclip,
+    SendHorizontal,
+    X
 } from "lucide-react";
-import { useState, KeyboardEvent, useRef } from "react";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import dynamic from 'next/dynamic';
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
 import { useTheme } from "next-themes";
+import { KeyboardEvent, useRef, useState } from "react";
 
 interface MessageInputProps {
 	onSend: (message: string, attachments?: File[]) => void;
 	replyTo?: {
 		id: string;
-			content: string;
-			sender: string;
+		content: string;
+		sender: string;
 	};
 	onCancelReply?: () => void;
 }
@@ -89,7 +80,9 @@ export function MessageInput({
 			{replyTo && (
 				<div className="flex items-center justify-between mb-1.5 sm:mb-2 p-1.5 sm:p-2 bg-muted rounded">
 					<div className="flex-1">
-						<p className="text-[10px] sm:text-xs font-medium">Ответ для {replyTo.sender}</p>
+						<p className="text-[10px] sm:text-xs font-medium">
+							Ответ для {replyTo.sender}
+						</p>
 						<p className="text-[10px] sm:text-xs text-muted-foreground truncate">
 							{replyTo.content}
 						</p>
@@ -111,7 +104,9 @@ export function MessageInput({
 						<div
 							key={index}
 							className="relative group bg-muted rounded p-1.5 sm:p-2 text-[10px] sm:text-xs">
-							<span className="truncate max-w-[80px] sm:max-w-[100px] block">{file.name}</span>
+							<span className="truncate max-w-[80px] sm:max-w-[100px] block">
+								{file.name}
+							</span>
 							<Button
 								variant="ghost"
 								size="icon"
@@ -170,28 +165,12 @@ export function MessageInput({
 							<ImageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
 						</Button>
 
-						<Popover>
-							<PopoverTrigger asChild>
-								<Button variant="ghost" size="icon" className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11">
-									<Smile className="h-4 w-4 sm:h-5 sm:w-5" />
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="end">
-								<Picker
-									data={data}
-									onEmojiSelect={handleEmojiSelect}
-									locale="ru"
-									previewPosition="none"
-									skinTonePosition="none"
-									theme={theme === 'dark' ? 'dark' : 'light'}
-								/>
-							</PopoverContent>
-						</Popover>
-
 						<Button
 							variant="ghost"
 							size="icon"
-							className={`h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 ${isRecording ? "text-destructive" : ""}`}
+							className={`h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 ${
+								isRecording ? "text-destructive" : ""
+							}`}
 							onClick={toggleRecording}>
 							<Mic className="h-4 w-4 sm:h-5 sm:w-5" />
 						</Button>
@@ -201,7 +180,10 @@ export function MessageInput({
 					<div className="lg:hidden">
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button variant="ghost" size="icon" className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11">
+								<Button
+									variant="ghost"
+									size="icon"
+									className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11">
 									<MoreHorizontal className="h-4 w-4 sm:h-5 sm:w-5" />
 								</Button>
 							</DropdownMenuTrigger>
@@ -210,14 +192,12 @@ export function MessageInput({
 									<Paperclip className="h-4 w-4 mr-2" />
 									Прикрепить файл
 								</DropdownMenuItem>
-								<DropdownMenuItem onClick={() => imageInputRef.current?.click()}>
+								<DropdownMenuItem
+									onClick={() => imageInputRef.current?.click()}>
 									<ImageIcon className="h-4 w-4 mr-2" />
 									Прикрепить изображение
 								</DropdownMenuItem>
-								<DropdownMenuItem onClick={handleEmojiSelect}>
-									<Smile className="h-4 w-4 mr-2" />
-									Добавить эмодзи
-								</DropdownMenuItem>
+
 								<DropdownMenuItem onClick={toggleRecording}>
 									<Mic className="h-4 w-4 mr-2" />
 									Голосовое сообщение
@@ -226,7 +206,10 @@ export function MessageInput({
 						</DropdownMenu>
 					</div>
 
-					<Button onClick={handleSend} size="icon" className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11">
+					<Button
+						onClick={handleSend}
+						size="icon"
+						className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11">
 						<SendHorizontal className="h-4 w-4 sm:h-5 sm:w-5" />
 					</Button>
 				</div>

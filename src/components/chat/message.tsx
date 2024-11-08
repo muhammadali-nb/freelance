@@ -2,25 +2,16 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import { MoreHorizontal, Reply, Smile, Forward } from "lucide-react";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
-import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
+import { MoreHorizontal, Reply } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface MessageProps {
@@ -47,7 +38,7 @@ interface MessageProps {
 	onForward?: () => void;
 	onDelete?: () => void;
 	onReact?: (emoji: string) => void;
-	reactions?: Array<{emoji: string, count: number}>;
+	reactions?: Array<{ emoji: string; count: number }>;
 }
 
 export function Message({
@@ -61,18 +52,11 @@ export function Message({
 	onForward,
 	onDelete,
 	onReact,
-	reactions = []
+	reactions = [],
 }: MessageProps) {
 	const { theme } = useTheme();
 
 	// Используем useMemo для мемоизации реакций
-	const messageReactions = useMemo(() => reactions, [reactions]);
-
-	const handleEmojiSelect = (emoji: any) => {
-		if (onReact && emoji?.native) {
-			onReact(emoji.native);
-		}
-	};
 
 	return (
 		<div
@@ -107,26 +91,6 @@ export function Message({
 							onClick={onReply}>
 							<Reply className="h-3 w-3 sm:h-4 sm:w-4" />
 						</Button>
-						<Popover>
-							<PopoverTrigger asChild>
-								<Button
-									variant="ghost"
-									size="icon"
-									className="h-5 w-5 sm:h-6 sm:w-6">
-									<Smile className="h-3 w-3 sm:h-4 sm:w-4" />
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="start">
-								<Picker
-									data={data}
-									onEmojiSelect={handleEmojiSelect}
-									locale="ru"
-									previewPosition="none"
-									skinTonePosition="none"
-									theme={theme === 'dark' ? 'dark' : 'light'}
-								/>
-							</PopoverContent>
-						</Popover>
 					</div>
 
 					{/* Message content */}
@@ -194,21 +158,6 @@ export function Message({
 											</div>
 										)}
 									</div>
-								))}
-							</div>
-						)}
-
-						{/* Reactions */}
-						{messageReactions.length > 0 && (
-							<div className="flex flex-wrap gap-1 mt-1">
-								{messageReactions.map((reaction, index) => (
-									<button
-										key={index}
-										onClick={() => onReact?.(reaction.emoji)}
-										className="bg-background/20 rounded-full px-2 py-0.5 text-xs hover:bg-background/30 transition-colors"
-									>
-										{reaction.emoji} {reaction.count}
-									</button>
 								))}
 							</div>
 						)}

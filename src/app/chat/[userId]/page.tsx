@@ -52,7 +52,7 @@ export default function ChatPage() {
 	const [messages, setMessages] = useState<MessageType[]>(mockMessages);
 	const [replyingTo, setReplyingTo] = useState<MessageType | null>(null);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
-	const currentUserId = "c1"; // В реальном приложении получайте из контекста аутентификации
+	const currentUserId = "c1";
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -62,6 +62,7 @@ export default function ChatPage() {
 		scrollToBottom();
 	}, [messages]);
 
+	// Обработчики сообщений
 	const handleSendMessage = (content: string, attachments?: File[]) => {
 		const newMessage: MessageType = {
 			id: Date.now().toString(),
@@ -81,7 +82,7 @@ export default function ChatPage() {
 			}),
 		};
 		setMessages([...messages, newMessage]);
-		setReplyingTo(null); // Сбрасываем состояние ответа после отправки
+		setReplyingTo(null);
 	};
 
 	const handleReply = (message: MessageType) => {
@@ -97,9 +98,9 @@ export default function ChatPage() {
 	};
 
 	return (
-		<div className="flex flex-col h-[calc(100vh-1rem)] bg-background">
-			{/* Заголовок чата */}
-			<div className="flex items-center gap-3 p-4 sm:p-3 border-b">
+		<div className="flex flex-col h-[100dvh] bg-background">
+			{/* Фиксированный заголовок */}
+			<div className="flex items-center gap-3 p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-20">
 				<Avatar className="h-8 w-8 sm:h-10 sm:w-10">
 					<AvatarImage src="/avatars/ivan.jpg" alt="Иван Петров" />
 					<AvatarFallback>ИП</AvatarFallback>
@@ -112,40 +113,48 @@ export default function ChatPage() {
 				</div>
 			</div>
 
-			{/* Сообщения */}
-			<div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-4">
-				{messages.map((message) => (
-					<Message
-						key={message.id}
-						content={message.content}
-						sender={message.sender}
-						createdAt={message.createdAt}
-						isCurrentUser={message.sender.id === currentUserId}
-						replyTo={message.replyTo}
-						onReply={() => handleReply(message)}
-						onDelete={() => handleDelete(message.id)}
-						onForward={() => {
-							/* Добавить функционал пересылки */
-						}}
-					/>
-				))}
+			{/* Контейнер для сообщений с минимальной высотой */}
+			<div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-4 min-h-[50dvh]">
+				{messages.length === 0 ? (
+					<div className="flex items-center justify-center h-full text-muted-foreground">
+						Нет сообщений
+					</div>
+				) : (
+					messages.map((message) => (
+						<Message
+							key={message.id}
+							content={message.content}
+							sender={message.sender}
+							createdAt={message.createdAt}
+							isCurrentUser={message.sender.id === currentUserId}
+							replyTo={message.replyTo}
+							onReply={() => handleReply(message)}
+							onDelete={() => handleDelete(message.id)}
+							onForward={() => {
+								/* Добавить функционал пересылки */
+							}}
+						/>
+					))
+				)}
 				<div ref={messagesEndRef} />
 			</div>
 
-			{/* Ввод сообщения */}
-			<MessageInput
-				onSend={handleSendMessage}
-				replyTo={
-					replyingTo
-						? {
-								id: replyingTo.id,
-								content: replyingTo.content,
-								sender: replyingTo.sender.name,
-						  }
-						: undefined
-				}
-				onCancelReply={handleCancelReply}
-			/>
+			{/* Фиксированный ввод сообщения */}
+			<div className="sticky bottom-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t z-20">
+				<MessageInput
+					onSend={handleSendMessage}
+					replyTo={
+						replyingTo
+							? {
+									id: replyingTo.id,
+									content: replyingTo.content,
+									sender: replyingTo.sender.name,
+							  }
+							: undefined
+					}
+					onCancelReply={handleCancelReply}
+				/>
+			</div>
 		</div>
 	);
 }

@@ -2,19 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    Image as ImageIcon,
-    Mic,
-    MoreHorizontal,
-    Paperclip,
-    SendHorizontal,
-    X
+	Image as ImageIcon,
+	Mic,
+	MoreHorizontal,
+	Paperclip,
+	SendHorizontal,
+	X,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { KeyboardEvent, useRef, useState } from "react";
@@ -126,7 +126,7 @@ export function MessageInput({
 						onChange={(e) => setMessage(e.target.value)}
 						onKeyDown={handleKeyDown}
 						placeholder="Введите сообщение..."
-						className="min-h-[36px] sm:min-h-[40px] md:min-h-[44px] max-h-[100px] sm:max-h-[120px] text-[16px] resize-none"
+						className="min-h-[36px] sm:min-h-[40px] md:min-h-[44px] max-h-[100px] sm:max-h-[120px] resize-none"
 					/>
 				</div>
 

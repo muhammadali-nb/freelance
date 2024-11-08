@@ -64,24 +64,49 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
+}
 
+@media (min-width: 640px) {
   input[type="text"],
-  input[type="email"],
+  input[type="email"], 
   input[type="password"],
   input[type="number"],
   input[type="search"],
   input[type="tel"],
   input[type="url"],
-  textarea {
-    font-size: 16px;
+  textarea,
+  select:focus {
+    font-size: 15px;
   }
-  
+}
+
+@media (min-width: 768px) {
+  input[type="text"],
+  input[type="email"], 
+  input[type="password"], 
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
   select:focus {
     font-size: 16px;
   }
 }
- 
+
 @layer base {
+  input[type="text"],
+  input[type="email"], 
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select:focus {
+    font-size: 14px;
+  }
+
   * {
     @apply border-border;
   }

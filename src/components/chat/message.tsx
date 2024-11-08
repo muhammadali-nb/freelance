@@ -3,15 +3,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import { MoreHorizontal, Reply } from "lucide-react";
+import { Forward, MoreHorizontal, Reply } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface MessageProps {
@@ -70,7 +70,6 @@ export function Message({
 			</Avatar>
 			<div
 				className={cn("flex flex-col relative", isCurrentUser && "items-end")}>
-				{/* Reply to message */}
 				{replyTo && (
 					<div
 						className={cn(
@@ -82,8 +81,12 @@ export function Message({
 					</div>
 				)}
 
-				<div className="flex items-start gap-1 sm:gap-2">
-					<div className="flex flex-col justify-between items-center">
+				<div
+					className={cn(
+						"flex items-start gap-1 sm:gap-2 ",
+						!isCurrentUser && "flex-row-reverse"
+					)}>
+					{isCurrentUser ? (
 						<Button
 							variant="ghost"
 							size="icon"
@@ -91,7 +94,15 @@ export function Message({
 							onClick={onReply}>
 							<Reply className="h-3 w-3 sm:h-4 sm:w-4" />
 						</Button>
-					</div>
+					) : (
+						<Button
+							variant="ghost"
+							size="icon"
+							className="h-5 w-5 sm:h-6 sm:w-6"
+							onClick={onReply}>
+							<Forward className="h-3 w-3 sm:h-4 sm:w-4" />
+						</Button>
+					)}
 
 					{/* Message content */}
 					<div

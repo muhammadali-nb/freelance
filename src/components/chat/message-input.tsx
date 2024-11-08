@@ -78,9 +78,9 @@ export function MessageInput({
 		<div className="p-2 sm:p-3 md:p-4 border-t bg-background">
 			{/* Reply indicator */}
 			{replyTo && (
-				<div className="flex items-center justify-between mb-1.5 sm:mb-2 p-1.5 sm:p-2 bg-muted rounded">
-					<div className="flex-1">
-						<p className="text-[10px] sm:text-xs font-medium">
+				<div className="flex items-center justify-between mb-1.5 sm:mb-2 p-1.5 sm:p-2 bg-muted rounded max-w-full">
+					<div className="flex-1 min-w-0">
+						<p className="text-[10px] sm:text-xs font-medium truncate">
 							Ответ для {replyTo.sender}
 						</p>
 						<p className="text-[10px] sm:text-xs text-muted-foreground truncate">
@@ -90,7 +90,7 @@ export function MessageInput({
 					<Button
 						variant="ghost"
 						size="icon"
-						className="h-5 w-5 sm:h-6 sm:w-6"
+						className="h-5 w-5 sm:h-6 sm:w-6 shrink-0 ml-2"
 						onClick={onCancelReply}>
 						<X className="h-3 w-3 sm:h-4 sm:w-4" />
 					</Button>

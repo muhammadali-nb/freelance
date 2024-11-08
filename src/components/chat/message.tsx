@@ -73,10 +73,10 @@ export function Message({
 				{replyTo && (
 					<div
 						className={cn(
-							"text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1 px-2 sm:px-4",
+							"text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1 px-2 sm:px-4 max-w-[260px] sm:max-w-full",
 							"border-l-2 border-primary/50"
 						)}>
-						<span className="font-medium">{replyTo.sender}</span>
+						<span className="font-medium block truncate">{replyTo.sender}</span>
 						<p className="truncate">{replyTo.content}</p>
 					</div>
 				)}

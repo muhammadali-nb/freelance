@@ -12,7 +12,7 @@ export default function HomePage() {
 				тысячам клиентов.
 			</p>
 			<div className="flex flex-col items-center justify-center sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-				<Link href="/projects">
+				<Link href="/orders">
 					<Button size="lg">Найти проект</Button>
 				</Link>
 				<Link href="/become-freelancer">

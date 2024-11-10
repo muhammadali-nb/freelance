@@ -1,11 +1,16 @@
+'use client'
+
 import { OrdersList } from "@/components/orders/orders-list";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RoleToggle } from "@/components/role-toggle";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { useRole } from "@/context/role-context";
 
 export default function OrdersPage() {
+	const { role } = useRole();
+
 	return (
 		<div className="space-y-6 py-6 pb-16">
 			<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
@@ -18,9 +23,11 @@ export default function OrdersPage() {
 						Просматривайте последние заказы от клиентов
 					</p>
 				</div>
-				<Link href={"/orders/create-order"}>
-					<Button className="text-xs sm:text-base">Создать заказ</Button>
-				</Link>
+				{role === "client" && (
+					<Link href={"/orders/create-order"}>
+						<Button className="text-xs sm:text-base">Создать заказ</Button>
+					</Link>
+				)}
 			</div>
 			<Separator />
 			<Tabs defaultValue="all" className="space-y-4">

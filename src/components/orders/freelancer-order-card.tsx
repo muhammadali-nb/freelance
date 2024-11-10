@@ -200,7 +200,7 @@ export function FreelancerOrderCard({
 						<span className="text-xs text-muted-foreground">
 							Начат: {new Date(order.createdAt).toLocaleDateString()}
 						</span>
-						{hasResponded ? (
+						{/* {hasResponded ? (
 							<Button variant="outline" disabled className="mt-2">
 								Вы откликнулись
 							</Button>
@@ -208,7 +208,7 @@ export function FreelancerOrderCard({
 							<Button asChild className="mt-2">
 								<Link href={`/orders/${order.id}/respond`}>Откликнуться</Link>
 							</Button>
-						)}
+						)} */}
 					</div>
 				</div>
 			</Card>

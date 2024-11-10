@@ -4,7 +4,11 @@ import { Message } from "@/components/chat/message";
 import { MessageInput } from "@/components/chat/message-input";
 import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import OrderStatus from "@/components/orders/order-status";
+import { WorkSubmissionMessage } from "@/components/chat/work-submission-message";
+import { DisputeMessage } from "@/components/chat/dispute-message";
+import { WorkReviewMessage } from "@/components/chat/work-review-message";
 
 interface MessageType {
 	id: string;
@@ -53,6 +57,17 @@ export default function ChatPage() {
 	const [replyingTo, setReplyingTo] = useState<MessageType | null>(null);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const currentUserId = "c1";
+	const searchParams = useSearchParams();
+	const isWorkSubmission = searchParams?.get("submitWork") === "true";
+	const submissionOrderId = searchParams?.get("orderId");
+	const submissionDescription = searchParams?.get("description");
+	const isDispute = searchParams?.get("dispute") === "true";
+	const disputeReason = searchParams?.get("reason");
+	const disputeDescription = searchParams?.get("description");
+	const disputeOutcome = searchParams?.get("outcome");
+	const isReview = searchParams?.get("review") === "true";
+	const reviewDecision = searchParams?.get("decision") as "approve" | "revision";
+	const reviewFeedback = searchParams?.get("feedback");
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -62,7 +77,6 @@ export default function ChatPage() {
 		scrollToBottom();
 	}, [messages]);
 
-	// Обработчики сообщений
 	const handleSendMessage = (content: string, attachments?: File[]) => {
 		const newMessage: MessageType = {
 			id: Date.now().toString(),
@@ -100,21 +114,49 @@ export default function ChatPage() {
 	return (
 		<div className="flex flex-col h-[100dvh] bg-background">
 			{/* Фиксированный заголовок */}
-			<div className="flex items-center gap-3 p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-20">
-				<Avatar className="h-8 w-8 sm:h-10 sm:w-10">
-					<AvatarImage src="/avatars/ivan.jpg" alt="Иван Петров" />
-					<AvatarFallback>ИП</AvatarFallback>
-				</Avatar>
-				<div>
-					<h2 className="font-medium text-sm sm:text-base">Иван Петров</h2>
-					<p className="text-xs sm:text-sm text-muted-foreground">
-						Full-Stack Developer
-					</p>
+			<div className="flex items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-20">
+				<div className="flex gap-3">
+					<Avatar className="h-8 w-8 sm:h-10 sm:w-10">
+						<AvatarImage src="/avatars/ivan.jpg" alt="Иван Петров" />
+						<AvatarFallback>ИП</AvatarFallback>
+					</Avatar>
+					<div>
+						<h2 className="font-medium text-sm sm:text-base">Иван Петров</h2>
+						<p className="text-xs sm:text-sm text-muted-foreground">
+							Full-Stack Developer
+						</p>
+					</div>
 				</div>
+				<OrderStatus status="active" />
 			</div>
 
 			{/* Контейнер для сообщений с минимальной высотой */}
-			<div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-4 min-h-[50dvh]">
+			<div className="flex-1 overflow-y-auto p-4 space-y-4">
+				{isWorkSubmission && submissionOrderId && submissionDescription && (
+					<WorkSubmissionMessage
+						orderId={submissionOrderId}
+						orderTitle="Название заказа" // В реальном приложении получать из API
+						description={submissionDescription}
+						files={[{ name: "test.txt", url: "qwerty/123", size: 2131 }]} // В реальном приложении получать из API
+					/>
+				)}
+				{isDispute && submissionOrderId && disputeReason && disputeDescription && disputeOutcome && (
+					<DisputeMessage
+						orderId={submissionOrderId}
+						orderTitle="Название заказа" // В реальном приложении получать из API
+						reason={disputeReason}
+						description={disputeDescription}
+						desiredOutcome={disputeOutcome}
+					/>
+				)}
+				{isReview && submissionOrderId && reviewDecision && reviewFeedback && (
+					<WorkReviewMessage
+						orderId={submissionOrderId}
+						orderTitle="Название заказа" // В реальном приложении получать из API
+						decision={reviewDecision}
+						feedback={reviewFeedback}
+					/>
+				)}
 				{messages.length === 0 ? (
 					<div className="flex items-center justify-center h-full text-muted-foreground">
 						Нет сообщений
@@ -130,9 +172,7 @@ export default function ChatPage() {
 							replyTo={message.replyTo}
 							onReply={() => handleReply(message)}
 							onDelete={() => handleDelete(message.id)}
-							onForward={() => {
-								/* Добавить функционал пересылки */
-							}}
+							onForward={() => {}}
 						/>
 					))
 				)}

@@ -70,7 +70,9 @@ const Navbar = () => {
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem>
-										<Link href="/projects" className="w-full flex items-center">
+										<Link
+											href="/my-orders"
+											className="w-full flex items-center">
 											<Briefcase className="mr-2 h-4 w-4" />
 											<span>Мои проекты</span>
 										</Link>
@@ -175,10 +177,10 @@ const Navbar = () => {
 										Настройки
 									</MobileMenuItem>
 									<MobileMenuItem
-										href="/projects"
+										href="/my-orders"
 										icon={Briefcase}
 										onClick={toggleMenu}>
-										Мои проекты
+										Мои заказы
 									</MobileMenuItem>
 									<button
 										onClick={handleLogout}

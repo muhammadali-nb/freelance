@@ -26,17 +26,15 @@ export default function RootLayout({
 			</head>
 			<body className={inter.className}>
 				<AuthProvider>
-					<RoleProvider>
-						<NotificationsProvider>
-							<ThemeProvider
-								attribute="class"
-								defaultTheme="system"
-								enableSystem
-								disableTransitionOnChange>
-								{children}
-							</ThemeProvider>
-						</NotificationsProvider>
-					</RoleProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange>
+						<RoleProvider>
+							<NotificationsProvider>{children}</NotificationsProvider>
+						</RoleProvider>
+					</ThemeProvider>
 				</AuthProvider>
 			</body>
 		</html>

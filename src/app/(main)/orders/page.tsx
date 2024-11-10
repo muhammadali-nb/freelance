@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RoleToggle } from "@/components/role-toggle";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 export default function OrdersPage() {
 	return (
@@ -17,7 +18,9 @@ export default function OrdersPage() {
 						Просматривайте последние заказы от клиентов
 					</p>
 				</div>
-				<Button className="text-xs sm:text-base">Создать заказ</Button>
+				<Link href={"/orders/create-order"}>
+					<Button className="text-xs sm:text-base">Создать заказ</Button>
+				</Link>
 			</div>
 			<Separator />
 			<Tabs defaultValue="all" className="space-y-4">

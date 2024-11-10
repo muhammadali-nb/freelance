@@ -21,23 +21,18 @@ import {
 	Settings2,
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { PageHeader } from "@/components/page-header";
 
 export default function SettingsPage() {
 	const { theme, setTheme } = useTheme();
 
 	return (
 		<div className="space-y-4 sm:space-y-6 md:space-y-8 pt-6 sm:p-6 md:p-10">
-			<div className="flex items-center gap-2 sm:gap-3">
-				<Settings2 className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
-				<div>
-					<h1 className="text-xl sm:text-2xl md:text-3xl font-bold">
-						Настройки
-					</h1>
-					<p className="text-sm sm:text-base text-muted-foreground mt-1 sm:mt-2">
-						Управляйте настройками вашего аккаунта
-					</p>
-				</div>
-			</div>
+			<PageHeader
+				icon={Settings2}
+				title="Настройки"
+				description="Управляйте настройками вашего аккаунта"
+			/>
 
 			<Card className="hover:shadow-md transition-shadow">
 				<CardHeader className="p-4 sm:p-6">

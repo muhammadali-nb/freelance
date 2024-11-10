@@ -1,11 +1,14 @@
 "use client";
 
+import { PageHeader } from "@/components/page-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { FileText } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useRole } from "@/context/role-context";
 
 // В реальном приложении данные будут загружаться с сервера
 const mockOrder = {
@@ -59,18 +62,16 @@ const mockOrder = {
 
 export default function OrderDetailPage() {
 	const params = useParams<{ id: string }>();
+	const { role } = useRole();
 
 	return (
-		<div className="space-y-6 py-6 pb-16">
-			<div className="space-y-0.5">
-				<h2 className="text-lg md:text-2xl font-bold tracking-tight">
-					{mockOrder.title}
-				</h2>
-				<p className="text-muted-foreground text-sm md:text-base">
-					Детальная информация о заказе
-				</p>
-			</div>
-			<Separator />
+		<div className="space-y-4 sm:space-y-6 md:space-y-8 pt-6 sm:p-6 md:p-10">
+			<PageHeader
+				icon={FileText}
+				title={mockOrder.title}
+				description="Детальная информация о заказе"
+			/>
+
 			<div className="grid md:grid-cols-3 gap-6">
 				<div className="md:col-span-2 space-y-6">
 					<Card>
@@ -185,9 +186,20 @@ export default function OrderDetailPage() {
 										{mockOrder.proposals}
 									</div>
 								</div>
-								<Button className="w-full text-sm sm:text-base">
-									Откликнуться
-								</Button>
+								{role === "freelancer" && (
+									<Link href={`/orders/${params.id}/respond`}>
+										<Button className="w-full text-sm sm:text-base mt-3">
+											Откликнуться
+										</Button>
+									</Link>
+								)}
+								{role === "client" && (
+									<Link href={`/orders/${params.id}/responses`}>
+										<Button className="w-full text-sm sm:text-base mt-3">
+											Просмотреть отклики
+										</Button>
+									</Link>
+								)}
 							</div>
 						</CardContent>
 					</Card>

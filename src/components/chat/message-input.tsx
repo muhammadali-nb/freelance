@@ -76,7 +76,6 @@ export function MessageInput({
 
 	return (
 		<div className="p-2 sm:p-3 md:p-4 border-t bg-background">
-			{/* Reply indicator */}
 			{replyTo && (
 				<div className="flex items-center justify-between mb-1.5 sm:mb-2 p-1.5 sm:p-2 bg-muted rounded max-w-full">
 					<div className="flex-1 min-w-0">
@@ -96,8 +95,6 @@ export function MessageInput({
 					</Button>
 				</div>
 			)}
-
-			{/* Attachments preview */}
 			{attachments.length > 0 && (
 				<div className="flex flex-wrap gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
 					{attachments.map((file, index) => (

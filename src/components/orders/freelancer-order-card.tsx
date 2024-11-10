@@ -32,12 +32,14 @@ interface FreelancerOrderCardProps {
 		orderId: string,
 		newStatus: FreelancerOrder["status"]
 	) => void;
+	hasResponded?: boolean;
 }
 
 export function FreelancerOrderCard({
 	order,
 	getStatusBadge,
 	onStatusChange,
+	hasResponded = false,
 }: FreelancerOrderCardProps) {
 	const [isSubmitWorkOpen, setIsSubmitWorkOpen] = useState(false);
 	const [isDisputeOpen, setIsDisputeOpen] = useState(false);
@@ -198,6 +200,15 @@ export function FreelancerOrderCard({
 						<span className="text-xs text-muted-foreground">
 							Начат: {new Date(order.createdAt).toLocaleDateString()}
 						</span>
+						{hasResponded ? (
+							<Button variant="outline" disabled className="mt-2">
+								Вы откликнулись
+							</Button>
+						) : (
+							<Button asChild className="mt-2">
+								<Link href={`/orders/${order.id}/respond`}>Откликнуться</Link>
+							</Button>
+						)}
 					</div>
 				</div>
 			</Card>

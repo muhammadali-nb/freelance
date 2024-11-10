@@ -1,7 +1,7 @@
 "use client";
 
 import { PageHeader } from "@/components/page-header";
-import { HandshakeIcon } from "lucide-react";
+import { HandshakeIcon, CheckCircle } from "lucide-react";
 import {
 	Card,
 	CardContent,
@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { RouteGuard } from "@/components/auth/route-guard";
+import toast from "react-hot-toast";
 
 // Моковые данные заказа (в реальном приложении будут загружаться с сервера)
 const mockOrder = {
@@ -83,9 +84,28 @@ export default function RespondToOrderPage() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log("Отправка отклика:", formData);
-		// Здесь будет логика отправки на сервер
-		router.push(`/orders/${mockOrder.id}/responses`);
+
+		try {
+			console.log("Отправка отклика:", formData);
+			toast.success(
+				<p
+					id="hs-toast-success-example-label"
+					className="text-sm text-gray-700 dark:text-neutral-400">
+					Отклик отправлен
+				</p>,
+				{
+					duration: 2000,
+					position: "top-center", 
+					className: 'dark:bg-neutral-800 dark:text-neutral-200 bg-white text-neutral-800'
+				}
+			);
+
+			router.back();
+		} catch (error) {
+			toast.error("Не удалось отправить отклик. Попробуйте позже.", {
+				duration: 3000,
+			});
+		}
 	};
 
 	return (

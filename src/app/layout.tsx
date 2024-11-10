@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/context/auth-context";
 import { RoleProvider } from "@/context/role-context";
 import { NotificationsProvider } from "@/context/notifications-context";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
 	title: "Freelance Platform",
@@ -36,6 +37,7 @@ export default function RootLayout({
 						</RoleProvider>
 					</ThemeProvider>
 				</AuthProvider>
+				<Toaster position="top-right" />
 			</body>
 		</html>
 	);

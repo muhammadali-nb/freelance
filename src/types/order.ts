@@ -1,4 +1,4 @@
-export type OrderStatus = 
+export type OrderStatus =
   | "active"
   | "paused"
   | "completed"

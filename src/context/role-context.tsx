@@ -2,13 +2,11 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-export type UserRole = "client" | "freelancer";
+export type UserRole = "freelancer" | "client";
 
-interface RoleContextType {
-  role: UserRole;
+export interface RoleContextType {
+  role: UserRole | null;
   setRole: (role: UserRole) => void;
-  isClient: () => boolean;
-  isFreelancer: () => boolean;
 }
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined);
@@ -16,11 +14,8 @@ const RoleContext = createContext<RoleContextType | undefined>(undefined);
 export function RoleProvider({ children }: { children: ReactNode }) {
   const [role, setRole] = useState<UserRole>("client");
 
-  const isClient = () => role === "client";
-  const isFreelancer = () => role === "freelancer";
-
   return (
-    <RoleContext.Provider value={{ role, setRole, isClient, isFreelancer }}>
+    <RoleContext.Provider value={{ role, setRole }}>
       {children}
     </RoleContext.Provider>
   );

@@ -2,8 +2,14 @@
 
 import { RouteGuard } from "@/components/auth/route-guard";
 import { PageHeader } from "@/components/page-header";
-import { FileText } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { FilePlus, FilePlus2, FileText } from "lucide-react";
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,48 +31,52 @@ export default function CreateOrderPage() {
 	const [newRequirement, setNewRequirement] = useState("");
 	const [skills, setSkills] = useState<string[]>([]);
 	const [newSkill, setNewSkill] = useState("");
-	const [files, setFiles] = useState<{id: string, name: string, size: number}[]>([]);
+	const [files, setFiles] = useState<
+		{ id: string; name: string; size: number }[]
+	>([]);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleInputChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
 		const { name, value } = e.target;
-		setFormData(prev => ({ ...prev, [name]: value }));
+		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
 	const handleAddRequirement = () => {
 		if (newRequirement.trim()) {
-			setRequirements(prev => [...prev, newRequirement.trim()]);
+			setRequirements((prev) => [...prev, newRequirement.trim()]);
 			setNewRequirement("");
 		}
 	};
 
 	const handleRemoveRequirement = (index: number) => {
-		setRequirements(prev => prev.filter((_, i) => i !== index));
+		setRequirements((prev) => prev.filter((_, i) => i !== index));
 	};
 
 	const handleAddSkill = () => {
 		if (newSkill.trim()) {
-			setSkills(prev => [...prev, newSkill.trim()]);
+			setSkills((prev) => [...prev, newSkill.trim()]);
 			setNewSkill("");
 		}
 	};
 
 	const handleRemoveSkill = (index: number) => {
-		setSkills(prev => prev.filter((_, i) => i !== index));
+		setSkills((prev) => prev.filter((_, i) => i !== index));
 	};
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
-			const newFiles = Array.from(e.target.files).map(file => ({
+			const newFiles = Array.from(e.target.files).map((file) => ({
 				id: Math.random().toString(36).substr(2, 9),
 				name: file.name,
-				size: Number((file.size / (1024 * 1024)).toFixed(2))
+				size: Number((file.size / (1024 * 1024)).toFixed(2)),
 			}));
-			setFiles(prev => [...prev, ...newFiles]);
+			setFiles((prev) => [...prev, ...newFiles]);
 		}
 	};
 
 	const handleRemoveFile = (fileId: string) => {
-		setFiles(prev => prev.filter(file => file.id !== fileId));
+		setFiles((prev) => prev.filter((file) => file.id !== fileId));
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -75,7 +85,7 @@ export default function CreateOrderPage() {
 			...formData,
 			requirements,
 			skills,
-			attachments: files
+			attachments: files,
 		};
 		console.log("Новый заказ:", order);
 		// Здесь будет логика отправки на сервер
@@ -84,9 +94,9 @@ export default function CreateOrderPage() {
 
 	return (
 		<RouteGuard allowedRoles={["client"]}>
-			<div className="space-y-4 sm:space-y-6 md:space-y-8 p-3 sm:p-6 md:p-10">
+			<div className="space-y-4 sm:space-y-6 md:space-y-8 p-0 py-6 sm:p-6 md:p-10">
 				<PageHeader
-					icon={FileText}
+					icon={FilePlus2}
 					title="Создание заказа"
 					description="Заполните информацию о вашем заказе"
 				/>

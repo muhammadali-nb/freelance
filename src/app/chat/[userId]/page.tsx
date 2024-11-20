@@ -26,7 +26,6 @@ interface MessageType {
 	};
 }
 
-// Моковые данные для примера
 const mockMessages = [
 	{
 		id: "1",
